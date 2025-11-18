@@ -1,6 +1,8 @@
 import frontend.FrontEnd;
 import frontend.TokenStream;
 import frontend.Node;
+import llvm_ir.IRBuilder;
+import llvm_ir.Module;
 import utils.IOhandler;
 
 import java.io.FileNotFoundException;
@@ -18,6 +20,8 @@ public class Compiler {
         compUnit.visit();
         IOhandler.errorOutput();
         IOhandler.printSymbol();
-
+        Module module = IRBuilder.getInstance().getCurModule();
+        compUnit.genIR();
+        IOhandler.printLLVM(module);
     }
 }

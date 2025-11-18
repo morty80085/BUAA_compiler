@@ -9,6 +9,7 @@ import frontend.TokenType;
 import frontend.symbol.Symbol;
 import frontend.symbol.SymbolManager;
 import frontend.symbol.SymbolType;
+import llvm_ir.Module;
 
 import java.io.*;
 import java.util.*;
@@ -22,6 +23,7 @@ public class IOhandler {
     private static OutputStream errorStream = null;
     private static OutputStream parserStream = null;
     private static OutputStream symbolStream = null;
+    private static OutputStream llvmStream = null;
 
 
     public static void setIOhandler() throws FileNotFoundException {
@@ -30,6 +32,7 @@ public class IOhandler {
         IOhandler.errorStream = new FileOutputStream("error.txt");
         IOhandler.parserStream = new FileOutputStream("parser.txt");
         IOhandler.symbolStream = new FileOutputStream("symbol.txt");
+        IOhandler.llvmStream = new FileOutputStream("llvm_out.txt");
     }
 
     public static PushbackInputStream getInputStream() {
@@ -109,5 +112,13 @@ public class IOhandler {
             }
         }
 
+    }
+
+    public static void printLLVM(Module module) {
+        try {
+            llvmStream.write(module.toString().getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
