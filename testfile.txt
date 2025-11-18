@@ -1,5 +1,8 @@
 int global = 10;
 const int pp = 5 + 5;
+int array1[5] = {0, 1 ,2,3, 2 +2};
+const int array2[2] = { 5 + 2 * 3}
+int zero;
 
 int add(int b) {
     static int w = 1;

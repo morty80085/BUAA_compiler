@@ -1,5 +1,8 @@
 1 global Int
 1 pp ConstInt
+1 array1 IntArray
+1 array2 ConstIntArray
+1 zero Int
 1 add IntFunc
 2 b Int
 2 w StaticInt

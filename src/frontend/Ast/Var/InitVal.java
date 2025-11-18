@@ -19,10 +19,10 @@ public class InitVal extends Node{
             Exp exp = (Exp) children.get(0);
             ans.add(exp.execute());
         } else {
-            for(Node node : children) {
-                if(node instanceof InitVal) {
-                    ArrayList<Integer> temp = ((InitVal)node).execute(dim - 1);
-                    ans.addAll(temp);
+            for(int i = 0; i < children.size(); i++) {
+                if(children.get(i) instanceof Exp) {
+                    Exp exp = (Exp) children.get(i);
+                    ans.add(exp.execute());
                 }
             }
         }

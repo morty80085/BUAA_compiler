@@ -3,6 +3,7 @@ package frontend.Ast.Var;
 import frontend.Ast.Exp.ConstExp;
 import frontend.Node;
 import frontend.SyntaxVarType;
+import llvm_ir.Value;
 
 import java.util.ArrayList;
 
@@ -17,10 +18,10 @@ public class ConstInitVal extends Node {
             ConstExp constExp = (ConstExp) children.get(0);
             ans.add(constExp.execute());
         } else {
-            for(Node node : children) {
-                if(node instanceof ConstInitVal) {
-                    ArrayList<Integer> temp = ((ConstInitVal)node).execute(dim - 1);
-                    ans.addAll(temp);
+            for(int i = 0; i < children.size(); i++) {
+                if(children.get(i) instanceof ConstExp) {
+                    ConstExp constExp = (ConstExp) children.get(i);
+                    ans.add(constExp.execute());
                 }
             }
         }

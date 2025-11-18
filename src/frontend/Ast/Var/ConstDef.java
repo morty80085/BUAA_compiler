@@ -63,6 +63,11 @@ public class ConstDef extends Node{
                 dim = 1;
             }
             ArrayList<Integer> values = ((ConstInitVal)children.get(num-1)).execute(dim);
+            if(values.size() < len) {
+                for(int i = 0; i < len - values.size(); i++) {
+                    values.add(0);
+                }
+            }
             initial = new Initial(lLvmType, values);
         }
 
