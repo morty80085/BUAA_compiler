@@ -31,7 +31,7 @@ public class EqExp extends Node{
             }
             return operand1;
         } else {
-            for(int i = 0; i < children.size(); i++) {
+            for(int i = 1; i < children.size(); i++) {
                 if(children.get(i) instanceof TokenNode) {
                     //先拓展为32位，用于比较
                     if(!operand1.getType().isInt32()) {

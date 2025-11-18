@@ -35,10 +35,10 @@ public class InitVal extends Node{
             Value value = children.get(0).genIR();
             ans.add(value);
         } else {
-            for(Node child : children) {
-                if(child instanceof InitVal) {
-                    ArrayList<Value> temp = ((InitVal) child).genIRList(dim - 1);
-                    ans.addAll(temp);
+            for(int i = 0; i < children.size(); i++) {
+                if(children.get(i) instanceof Exp) {
+                    Value value = children.get(i).genIR();
+                    ans.add(value);
                 }
             }
         }

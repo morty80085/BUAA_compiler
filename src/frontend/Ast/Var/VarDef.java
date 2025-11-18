@@ -177,7 +177,6 @@ public class VarDef extends Node{
 
                         }
                     }
-
                 } else {
                     //否则是变量
                     //alloca指令

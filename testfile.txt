@@ -1,17 +1,13 @@
-int f1()
-{}
+int global = 10;
+const int pp = 5 + 5;
 
-void f2() {}
-
-int f3() {}
-int f4() {}
-
-int f5() {
-	{
-		return 0;
-}
+int add(int b) {
+    static int w = 1;
+    w = w + 1;
+    return w + b;
 }
 
 int main() {
-
+    int a[2] = {1, 2};
+    a[1] = a[1] + 1;
 }

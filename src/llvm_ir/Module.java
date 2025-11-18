@@ -100,6 +100,10 @@ public class Module extends Value{
 
         // 处理 functionList
         for (int i = 0; i < functions.size(); i++) {
+            //不输出getint的函数
+            if(functions.get(i).getName().equals("@getint")) {
+                continue;
+            }
             sb.append(functions.get(i).toString());
             if (i < functions.size() - 1) {
                 sb.append("\n\n");

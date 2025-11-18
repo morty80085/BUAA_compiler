@@ -135,7 +135,19 @@ public class UnaryExp extends Node{
             String name = indent.getTokenContent();
             if(name.equals("getint")) {
                 //如果是getint函数，要调用IOIInstr
-                IOInstr.GetInt instr = new IOInstr.GetInt(IRBuilder.getInstance().genVarName());
+//                IOInstr.GetInt instr = new IOInstr.GetInt(IRBuilder.getInstance().genVarName());
+//                return instr;
+                FuncSymbol funcSymbol = (FuncSymbol) SymbolManager.getManager().getSymbolByName(name);
+                Function function = funcSymbol.getLLvmValue();
+                ArrayList<Value> params = new ArrayList<>();
+                if(children.get(2) instanceof FuncRParams) {
+                    for(Node child : children.get(2).getChildren()) {
+                        if(child instanceof Exp) {
+                            params.add(child.genIR());
+                        }
+                    }
+                }
+                Instr instr = new CallInstr(IRBuilder.getInstance().genVarName(), function, params);
                 return instr;
             } else {
                 FuncSymbol funcSymbol = (FuncSymbol) SymbolManager.getManager().getSymbolByName(name);

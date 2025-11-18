@@ -117,6 +117,9 @@ public class IRBuilder {
     }
 
     public String genFunctionName(String name) {
+        if(name.equals("getint")) {
+            return "@" + name;
+        }
         return FUNC_NAME_PREFIX + name;
     }
 

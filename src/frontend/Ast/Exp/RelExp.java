@@ -27,7 +27,7 @@ public class RelExp extends Node{
         if(children.size() == 1) {
             return operand1;
         } else {
-            for(int i = 0; i < children.size(); i++) {
+            for(int i = 1; i < children.size(); i++) {
                 Node child = children.get(i);
                 if(child instanceof TokenNode) {
                     //如果上一条是icmp指令，要进行扩展

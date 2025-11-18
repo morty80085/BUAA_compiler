@@ -1,49 +1,93 @@
 INTTK int
-<FuncType>
-IDENFR f1
-LPARENT (
-RPARENT )
-LBRACE {
-RBRACE }
-<Block>
-<FuncDef>
-VOIDTK void
-<FuncType>
-IDENFR f2
-LPARENT (
-RPARENT )
-LBRACE {
-RBRACE }
-<Block>
-<FuncDef>
-INTTK int
-<FuncType>
-IDENFR f3
-LPARENT (
-RPARENT )
-LBRACE {
-RBRACE }
-<Block>
-<FuncDef>
-INTTK int
-<FuncType>
-IDENFR f4
-LPARENT (
-RPARENT )
-LBRACE {
-RBRACE }
-<Block>
-<FuncDef>
-INTTK int
-<FuncType>
-IDENFR f5
-LPARENT (
-RPARENT )
-LBRACE {
-LBRACE {
-RETURNTK return
-INTCON 0
+IDENFR global
+ASSIGN =
+INTCON 10
 <Number>
+<PrimaryExp>
+<UnaryExp>
+<MulExp>
+<AddExp>
+<Exp>
+<InitVal>
+<VarDef>
+SEMICN ;
+<VarDecl>
+CONSTTK const
+INTTK int
+IDENFR pp
+ASSIGN =
+INTCON 5
+<Number>
+<PrimaryExp>
+<UnaryExp>
+<MulExp>
+<AddExp>
+PLUS +
+INTCON 5
+<Number>
+<PrimaryExp>
+<UnaryExp>
+<MulExp>
+<AddExp>
+<ConstExp>
+<ConstInitVal>
+<ConstDef>
+SEMICN ;
+<ConstDecl>
+INTTK int
+<FuncType>
+IDENFR add
+LPARENT (
+INTTK int
+IDENFR b
+<FuncFParam>
+<FuncFParams>
+RPARENT )
+LBRACE {
+STATICTK static
+INTTK int
+IDENFR w
+ASSIGN =
+INTCON 1
+<Number>
+<PrimaryExp>
+<UnaryExp>
+<MulExp>
+<AddExp>
+<Exp>
+<InitVal>
+<VarDef>
+SEMICN ;
+<VarDecl>
+IDENFR w
+<LVal>
+ASSIGN =
+IDENFR w
+<LVal>
+<PrimaryExp>
+<UnaryExp>
+<MulExp>
+<AddExp>
+PLUS +
+INTCON 1
+<Number>
+<PrimaryExp>
+<UnaryExp>
+<MulExp>
+<AddExp>
+<Exp>
+SEMICN ;
+<Stmt>
+RETURNTK return
+IDENFR w
+<LVal>
+<PrimaryExp>
+<UnaryExp>
+<MulExp>
+<AddExp>
+PLUS +
+IDENFR b
+<LVal>
 <PrimaryExp>
 <UnaryExp>
 <MulExp>
@@ -53,15 +97,82 @@ SEMICN ;
 <Stmt>
 RBRACE }
 <Block>
-<Stmt>
-RBRACE }
-<Block>
 <FuncDef>
 INTTK int
 MAINTK main
 LPARENT (
 RPARENT )
 LBRACE {
+INTTK int
+IDENFR a
+LBRACK [
+INTCON 2
+<Number>
+<PrimaryExp>
+<UnaryExp>
+<MulExp>
+<AddExp>
+<ConstExp>
+RBRACK ]
+ASSIGN =
+LBRACE {
+INTCON 1
+<Number>
+<PrimaryExp>
+<UnaryExp>
+<MulExp>
+<AddExp>
+<Exp>
+COMMA ,
+INTCON 2
+<Number>
+<PrimaryExp>
+<UnaryExp>
+<MulExp>
+<AddExp>
+<Exp>
+RBRACE }
+<InitVal>
+<VarDef>
+SEMICN ;
+<VarDecl>
+IDENFR a
+LBRACK [
+INTCON 1
+<Number>
+<PrimaryExp>
+<UnaryExp>
+<MulExp>
+<AddExp>
+<Exp>
+RBRACK ]
+<LVal>
+ASSIGN =
+IDENFR a
+LBRACK [
+INTCON 1
+<Number>
+<PrimaryExp>
+<UnaryExp>
+<MulExp>
+<AddExp>
+<Exp>
+RBRACK ]
+<LVal>
+<PrimaryExp>
+<UnaryExp>
+<MulExp>
+<AddExp>
+PLUS +
+INTCON 1
+<Number>
+<PrimaryExp>
+<UnaryExp>
+<MulExp>
+<AddExp>
+<Exp>
+SEMICN ;
+<Stmt>
 RBRACE }
 <Block>
 <MainFuncDef>

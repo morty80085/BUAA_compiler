@@ -2,6 +2,7 @@ package frontend.Ast.Exp;
 
 import frontend.Node;
 import frontend.SyntaxVarType;
+import llvm_ir.Value;
 
 import java.util.ArrayList;
 
@@ -23,5 +24,10 @@ public class Exp extends Node{
     @Override
     public int execute() {
         return children.get(0).execute();
+    }
+
+    @Override
+    public Value genIR() {
+        return children.get(0).genIR();
     }
 }

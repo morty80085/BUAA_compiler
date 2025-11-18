@@ -30,7 +30,7 @@ public class MulExp extends Node{
     @Override
     public int execute() {
         int ans = children.get(0).execute();
-        for(int i = 0; i < children.size(); i++) {
+        for(int i = 1; i < children.size(); i++) {
             if(children.get(i) instanceof TokenNode && (((TokenNode) children.get(i)).getToken().getTokenType()) == TokenType.MULT) {
                 i = i + 1;
                 ans = ans * children.get(i).execute();
@@ -51,7 +51,8 @@ public class MulExp extends Node{
         Value operand2 = null;
         Instr instr = null;
 
-        for(int i = 0; i < children.size(); i++) {
+
+        for(int i = 1; i < children.size(); i++) {
            if(children.get(i) instanceof TokenNode && (((TokenNode) children.get(i)).getToken().getTokenType()) == TokenType.MULT) {
                i = i + 1;
                operand2 = children.get(i).genIR();
