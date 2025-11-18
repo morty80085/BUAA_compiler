@@ -1,0 +1,17 @@
+int f1()
+{}
+
+void f2() {}
+
+int f3() {}
+int f4() {}
+
+int f5() {
+	{
+		return 0;
+}
+}
+
+int main() {
+
+}

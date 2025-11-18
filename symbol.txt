@@ -1,0 +1,5 @@
+1 f1 IntFunc
+1 f2 VoidFunc
+1 f3 IntFunc
+1 f4 IntFunc
+1 f5 IntFunc
