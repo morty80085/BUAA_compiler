@@ -66,6 +66,12 @@ public class VarDef extends Node{
                 dim = 1;
             }
             ArrayList<Integer> values = ((InitVal)children.get(children.size() - 1)).execute(dim);
+            if(values.size() < len) {
+                int valueSize = len - values.size();
+                for(int i = 0; i < valueSize; i++) {
+                    values.add(0);
+                }
+            }
             initial = new Initial(lLvmType, values);
         }
 
@@ -105,6 +111,12 @@ public class VarDef extends Node{
                     dim = 1;
                 }
                 ArrayList<Integer> values = ((InitVal)children.get(children.size() - 1)).execute(dim);
+                if(values.size() < len) {
+                    int valueSize = len - values.size();
+                    for(int i = 0; i < valueSize; i++) {
+                        values.add(0);
+                    }
+                }
                 initial = new Initial(lLvmType, values);
             }
             return new VarSymbol(symbolName, symbolType, valueType, isArray, len, initial);

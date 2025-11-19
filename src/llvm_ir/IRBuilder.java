@@ -128,7 +128,7 @@ public class IRBuilder {
         loopStack.push(loop);
     }
 
-    public void popLoop(Loop loop) {
+    public void popLoop() {
         loopStack.pop();
     }
 

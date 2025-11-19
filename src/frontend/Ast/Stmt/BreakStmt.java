@@ -5,6 +5,10 @@ import error.ErrorRecorder;
 import frontend.Node;
 import frontend.SyntaxVarType;
 import frontend.symbol.SymbolManager;
+import llvm_ir.IRBuilder;
+import llvm_ir.Instr;
+import llvm_ir.Value;
+import llvm_ir.instr.JumpInstr;
 
 import java.util.ArrayList;
 
@@ -20,5 +24,11 @@ public class BreakStmt extends Node{
             ErrorRecorder.addError(new error.Error(Error.ErrorType.m, endLine));
         }
         super.visit();
+    }
+
+    @Override
+    public Value genIR() {
+        Instr instr = new JumpInstr(IRBuilder.getInstance().genVarName(), IRBuilder.getInstance().getCurLoop().getFollowBlock());
+        return null;
     }
 }

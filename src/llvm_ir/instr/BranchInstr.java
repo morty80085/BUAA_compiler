@@ -38,6 +38,6 @@ public class BranchInstr extends Instr {
         Value con = getCon();
         BasicBlock thenBlock = getThenBlock();
         BasicBlock elseBlock = getElseBlock();
-        return "br i1 " + con.getName() + ", label " + thenBlock.getName() + ", label " + elseBlock.getName();
+        return "br i1 " + con.getName() + ", label %" + thenBlock.getName() + ", label %" + elseBlock.getName();
     }
 }

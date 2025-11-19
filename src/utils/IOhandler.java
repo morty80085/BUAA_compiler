@@ -32,7 +32,7 @@ public class IOhandler {
         IOhandler.errorStream = new FileOutputStream("error.txt");
         IOhandler.parserStream = new FileOutputStream("parser.txt");
         IOhandler.symbolStream = new FileOutputStream("symbol.txt");
-        IOhandler.llvmStream = new FileOutputStream("llvm_out.txt");
+        IOhandler.llvmStream = new FileOutputStream("llvm_ir.txt");
     }
 
     public static PushbackInputStream getInputStream() {
