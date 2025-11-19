@@ -23,9 +23,9 @@ public class IfStmt extends Node{
             hasElse = true;
         }
         if(hasElse) {
-            BasicBlock thenBlock = new BasicBlock(IRBuilder.getInstance().genBBName());
-            BasicBlock followBlock = new BasicBlock(IRBuilder.getInstance().genBBName());
-            BasicBlock elseBlock = new BasicBlock(IRBuilder.getInstance().genBBName());
+            BasicBlock thenBlock = new BasicBlock(IRBuilder.getInstance().genBBName() + "then");
+            BasicBlock followBlock = new BasicBlock(IRBuilder.getInstance().genBBName() + "follow");
+            BasicBlock elseBlock = new BasicBlock(IRBuilder.getInstance().genBBName() + "else");
             ((CondExp) children.get(2)).genIRForCond(thenBlock, elseBlock);
             //先解析then
             IRBuilder.getInstance().setCurBasicBlock(thenBlock);
@@ -36,7 +36,7 @@ public class IfStmt extends Node{
             children.get(6).genIR();
             instr = new JumpInstr(IRBuilder.getInstance().genVarName(), followBlock);
             //最后解析follow
-            IRBuilder.getInstance().setCurBasicBlock(thenBlock);
+            IRBuilder.getInstance().setCurBasicBlock(followBlock);
         } else {
             BasicBlock thenBlock = new BasicBlock(IRBuilder.getInstance().genBBName());
             BasicBlock followBlock = new BasicBlock(IRBuilder.getInstance().genBBName());

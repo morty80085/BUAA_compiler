@@ -120,6 +120,9 @@ public class IRBuilder {
         if(name.equals("getint")) {
             return "@" + name;
         }
+        if(name.equals("main")) {
+            return "@" + name;
+        }
         return FUNC_NAME_PREFIX + name;
     }
 

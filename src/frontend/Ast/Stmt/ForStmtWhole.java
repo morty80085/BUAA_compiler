@@ -29,15 +29,24 @@ public class ForStmtWhole extends Node {
         int SemicnCnt = 0;
         Instr instr = null;
         //五个基本Block
-        BasicBlock condBlock = new BasicBlock(IRBuilder.getInstance().genBBName());
-        BasicBlock loopBlock = new BasicBlock(IRBuilder.getInstance().genBBName());
-        BasicBlock followBlock = new BasicBlock(IRBuilder.getInstance().genBBName());
-        BasicBlock forStmt1 = new BasicBlock(IRBuilder.getInstance().genBBName());
-        BasicBlock forStmt2 = new BasicBlock(IRBuilder.getInstance().genBBName());
+        BasicBlock condBlock = new BasicBlock(IRBuilder.getInstance().genBBName() + "forCond");
+        BasicBlock loopBlock = new BasicBlock(IRBuilder.getInstance().genBBName() + "forLoop");
+        BasicBlock followBlock = new BasicBlock(IRBuilder.getInstance().genBBName() + "forFollow");
+        BasicBlock forStmt1 = new BasicBlock(IRBuilder.getInstance().genBBName() + "forStmt1");
+        BasicBlock forStmt2 = new BasicBlock(IRBuilder.getInstance().genBBName() + "forStmt2");
         //新建Loop
         IRBuilder.getInstance().pushLoop(new Loop(condBlock, loopBlock, followBlock, forStmt1, forStmt2));
         //循环体开始，先到forStmt1
         instr = new JumpInstr(IRBuilder.getInstance().genVarName(), forStmt1);
+        //先计算一共有多少个children
+        int num = 5;
+        for(Node child : children) {
+            if(child instanceof ForStmt) {
+                num = num + 1;
+            } else if(child instanceof CondExp) {
+                num = num + 1;
+            }
+        }
         for(int i = 0; i < children.size(); i++) {
             if(children.get(i) instanceof TokenNode && ((TokenNode) children.get(i)).getToken().getTokenType() == TokenType.SEMICN) {
                 SemicnCnt = SemicnCnt + 1;
@@ -45,20 +54,21 @@ public class ForStmtWhole extends Node {
                 if(SemicnCnt == 0) {
                     //forStmt1
                     IRBuilder.getInstance().setCurBasicBlock(forStmt1);
-                    children.get(i).genIR();
-                    instr = new JumpInstr(IRBuilder.getInstance().genVarName(), loopBlock);
+                    ((ForStmt)children.get(i)).genIRList();
+                    instr = new JumpInstr(IRBuilder.getInstance().genVarName(), condBlock);
                 } else {
                     //forStmt2
                     IRBuilder.getInstance().setCurBasicBlock(forStmt2);
-                    children.get(i).genIR();
+                    ((ForStmt) children.get(i)).genIRList();
                     instr = new JumpInstr(IRBuilder.getInstance().genVarName(), condBlock);
                 }
-            } else if(children.get(i) instanceof Stmt) {
+            } else if(i == num) {
                 //循环体
                 IRBuilder.getInstance().setCurBasicBlock(loopBlock);
                 children.get(i).genIR();
                 instr = new JumpInstr(IRBuilder.getInstance().genVarName(), forStmt2);
             } else if(children.get(i) instanceof CondExp) {
+                IRBuilder.getInstance().setCurBasicBlock(condBlock);
                 ((CondExp) children.get(i)).genIRForCond(loopBlock, followBlock);
             }
         }

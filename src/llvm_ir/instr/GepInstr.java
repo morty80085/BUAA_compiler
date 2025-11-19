@@ -38,7 +38,7 @@ public class GepInstr extends Instr {
          } else {
             //i32
              return name + " = getelementptr inbounds " + lLvmType + ", " + pointerType + " "
-                     + pointer.getName() + ", i32" + offset.getName();
+                     + pointer.getName() + ", i32 " + offset.getName();
          }
      }
 }
