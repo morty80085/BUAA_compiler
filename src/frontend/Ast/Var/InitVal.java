@@ -15,15 +15,10 @@ public class InitVal extends Node{
 
     public ArrayList<Integer> execute(int dim) {
         ArrayList<Integer> ans = new ArrayList<>();
-        if(dim == 0) {
-            Exp exp = (Exp) children.get(0);
-            ans.add(exp.execute());
-        } else {
-            for(int i = 0; i < children.size(); i++) {
-                if(children.get(i) instanceof Exp) {
-                    Exp exp = (Exp) children.get(i);
-                    ans.add(exp.execute());
-                }
+        for(int i = 0; i < children.size(); i++) {
+            if(children.get(i) instanceof Exp) {
+                Exp exp = (Exp) children.get(i);
+                ans.add(exp.execute());
             }
         }
         return ans;

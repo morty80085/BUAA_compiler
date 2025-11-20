@@ -29,11 +29,11 @@ public class ForStmtWhole extends Node {
         int SemicnCnt = 0;
         Instr instr = null;
         //五个基本Block
+        BasicBlock forStmt1 = new BasicBlock(IRBuilder.getInstance().genBBName() + "forStmt1");
         BasicBlock condBlock = new BasicBlock(IRBuilder.getInstance().genBBName() + "forCond");
+        BasicBlock forStmt2 = new BasicBlock(IRBuilder.getInstance().genBBName() + "forStmt2");
         BasicBlock loopBlock = new BasicBlock(IRBuilder.getInstance().genBBName() + "forLoop");
         BasicBlock followBlock = new BasicBlock(IRBuilder.getInstance().genBBName() + "forFollow");
-        BasicBlock forStmt1 = new BasicBlock(IRBuilder.getInstance().genBBName() + "forStmt1");
-        BasicBlock forStmt2 = new BasicBlock(IRBuilder.getInstance().genBBName() + "forStmt2");
         //新建Loop
         IRBuilder.getInstance().pushLoop(new Loop(condBlock, loopBlock, followBlock, forStmt1, forStmt2));
         //循环体开始，先到forStmt1
@@ -74,7 +74,7 @@ public class ForStmtWhole extends Node {
         }
         if(forStmt1.isEmpty()) {
             IRBuilder.getInstance().setCurBasicBlock(forStmt1);
-            instr = new JumpInstr(IRBuilder.getInstance().genVarName(), loopBlock);
+            instr = new JumpInstr(IRBuilder.getInstance().genVarName(), condBlock);
         }
         if(forStmt2.isEmpty()) {
             IRBuilder.getInstance().setCurBasicBlock(forStmt2);
