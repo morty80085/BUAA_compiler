@@ -1,10 +1,12 @@
 package llvm_ir;
 
+import backend.Register;
 import llvm_ir.instr.ReturnInstr;
 import llvm_ir.type.LLvmType;
 import llvm_ir.type.OtherType;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Function extends User{
@@ -14,12 +16,14 @@ public class Function extends User{
     private LinkedList<BasicBlock> BBList;
     //返回类型
     private LLvmType retType;
+    private HashMap<Value, Register> registerMap;
 
     public Function(String name, LLvmType retType) {
         super(OtherType.Function, name);
         this.paramList = new ArrayList<>();
         this.BBList = new LinkedList<>();
         this.retType = retType;
+        this.registerMap = new HashMap<>();
         if(IRBuilder.mode == IRBuilder.AUTO_INSERT_MODE) {
             IRBuilder.getInstance().addFunction(this);
         }
@@ -56,6 +60,14 @@ public class Function extends User{
                 new ReturnInstr(IRBuilder.getInstance().genVarName(), null);
             }
         }
+    }
+
+    public HashMap<Value, Register> getRegisterMap() {
+        return registerMap;
+    }
+
+    public void setRegisterMap(HashMap<Value, Register> registerMap) {
+        this.registerMap = registerMap;
     }
 
     @Override
