@@ -13,6 +13,6 @@ public class LaInstr extends MipsInstr{
 
     @Override
     public String toString() {
-        return "\tla " + rt + ", " + name;
+        return "\tla " + rt + ", " + name + "\n";
     }
 }

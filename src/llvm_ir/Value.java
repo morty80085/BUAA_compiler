@@ -45,4 +45,8 @@ public class Value {
     public ArrayList<Use> getUseList() {
         return this.useList;
     }
+
+    public void genMips() {
+
+    }
 }

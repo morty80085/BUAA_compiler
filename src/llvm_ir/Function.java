@@ -1,5 +1,7 @@
 package llvm_ir;
 
+import backend.Instr.LabelInstr;
+import backend.MipsBuilder;
 import backend.Register;
 import llvm_ir.instr.ReturnInstr;
 import llvm_ir.type.LLvmType;
@@ -93,5 +95,34 @@ public class Function extends User{
 
         sb.append("\n}");
         return sb.toString();
+    }
+
+    @Override
+    public void genMips() {
+        LabelInstr labelInstr = new LabelInstr(name.substring(1));
+        //进入函数
+        MipsBuilder.getInstance().enterFunction(this);
+        //设置参数，$a0-$a3用来放前四个参数
+        for(int i = 0; i < paramList.size(); i++) {
+            if(i < 4) {
+                if(i == 0) {
+                    MipsBuilder.getInstance().setRegisterForValue(paramList.get(i), Register.a0);
+                } else if(i == 1) {
+                    MipsBuilder.getInstance().setRegisterForValue(paramList.get(i), Register.a1);
+                } else if(i == 2) {
+                    MipsBuilder.getInstance().setRegisterForValue(paramList.get(i), Register.a2);
+                } else {
+                    MipsBuilder.getInstance().setRegisterForValue(paramList.get(i), Register.a3);
+                }
+            } else {
+                MipsBuilder.getInstance().subCurrentOffset(4);
+                int offset = MipsBuilder.getInstance().getCurrentOffset();
+                MipsBuilder.getInstance().putOffset(paramList.get(i), offset);
+            }
+        }
+
+        for(BasicBlock block: BBList) {
+            block.genMips();
+        }
     }
 }

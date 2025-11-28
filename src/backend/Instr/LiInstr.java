@@ -13,6 +13,6 @@ public class LiInstr extends MipsInstr{
 
     @Override
     public String toString() {
-        return "\tli " + rs + ", " + number;
+        return "\tli " + rs + ", " + number + "\n";
     }
 }

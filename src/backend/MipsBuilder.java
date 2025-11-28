@@ -17,7 +17,7 @@ public class MipsBuilder {
     private ArrayList<MipsInstr> text;
 
     private static MipsBuilder mipsBuilder = new MipsBuilder();
-    public MipsBuilder getInstance() {
+    public static MipsBuilder getInstance() {
         return mipsBuilder;
     }
 
@@ -84,12 +84,13 @@ public class MipsBuilder {
         StringBuilder sb = new StringBuilder();
         sb.append(".data\n");
         for(MipsInstr mipsInstr : data) {
-            sb.append(mipsInstr.toString()).append("\n");
+            sb.append(mipsInstr.toString());
         }
         sb.append("\n\n.text\n");
         for(MipsInstr mipsInstr : text) {
-            sb.append(mipsInstr.toString()).append("\n");
+            sb.append(mipsInstr.toString());
         }
+        sb.append("end:\n");
         sb.append("\tli $v0,10\n");
         sb.append("\tsyscall");
         return sb.toString();

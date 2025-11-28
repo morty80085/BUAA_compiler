@@ -9,6 +9,6 @@ public class LabelInstr extends MipsInstr{
 
     @Override
     public String toString() {
-        return Label + ":";
+        return Label + ":\n";
     }
 }

@@ -1,5 +1,7 @@
 package llvm_ir;
 
+import backend.Instr.LabelInstr;
+import backend.MipsBuilder;
 import llvm_ir.type.OtherType;
 
 import java.util.LinkedList;
@@ -59,5 +61,11 @@ public class BasicBlock extends Value{
         }
 
         return sb.toString();
+    }
+
+    @Override
+    public void genMips() {
+        LabelInstr labelInstr = new LabelInstr(name);
+        MipsBuilder.getInstance().addText(labelInstr);
     }
 }

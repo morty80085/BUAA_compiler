@@ -1,5 +1,7 @@
 package llvm_ir;
 
+import backend.Instr.AsciizInstr;
+import backend.MipsBuilder;
 import llvm_ir.type.ArrayType;
 import llvm_ir.type.BaseType;
 import llvm_ir.type.PointerType;
@@ -20,5 +22,11 @@ public class StringLiteral extends Value{
         String escapedContent = content.replace("\n", "\\0A");
         return name + " = private unnamed_addr constant " +
                 ((PointerType)type).getTargetType() + " c\"" + escapedContent + "\\00\", align 1";
+    }
+
+    @Override
+    public void genMips() {
+        AsciizInstr asciizInstr = new AsciizInstr(name.substring(1), content);
+        MipsBuilder.getInstance().addDate(asciizInstr);
     }
 }

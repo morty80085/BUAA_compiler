@@ -1,6 +1,10 @@
 package llvm_ir;
 
+import backend.Instr.ContentInstr;
+import backend.Instr.MipsJumpInstr;
+import backend.MipsBuilder;
 import llvm_ir.instr.IOInstr;
+import llvm_ir.instr.JumpInstr;
 import llvm_ir.type.OtherType;
 
 import java.util.ArrayList;
@@ -111,5 +115,36 @@ public class Module extends Value{
         }
 
         return sb.toString();
+    }
+
+    @Override
+    public void genMips() {
+        // 处理 stringLiterals
+        for (int i = 0; i < stringLiterals.size(); i++) {
+            stringLiterals.get(i).genMips();
+        }
+        ContentInstr contentInstr = new ContentInstr("\n\n");
+        MipsBuilder.getInstance().addDate(contentInstr);
+
+        // 处理 globalVarList
+        for (int i = 0; i < globalVars.size(); i++) {
+            globalVars.get(i).genMips();
+        }
+        MipsBuilder.getInstance().addDate(contentInstr);
+
+        // 处理 staticVarList
+        for (int i = 0; i < staticVars.size(); i++) {
+            staticVars.get(i).genMips();
+        }
+        MipsBuilder.getInstance().addDate(contentInstr);
+
+        MipsJumpInstr mipsJumpInstr = new MipsJumpInstr(MipsJumpInstr.Op.jal,"main");
+        MipsBuilder.getInstance().addText(mipsJumpInstr);
+        mipsJumpInstr = new MipsJumpInstr(MipsJumpInstr.Op.j, "end");
+        MipsBuilder.getInstance().addText(mipsJumpInstr);
+
+        for(int i = 0; i < functions.size(); i++) {
+            functions.get(i).genMips();
+        }
     }
 }

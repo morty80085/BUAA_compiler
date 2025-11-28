@@ -21,6 +21,6 @@ public class WordInstr extends MipsInstr{
                 sb.append(value.get(i));
             }
         }
-        return "\t" + name + ": .word " + sb.toString();
+        return "\t" + name + ": .word " + sb.toString() + "\n";
     }
 }

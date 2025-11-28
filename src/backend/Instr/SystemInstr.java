@@ -7,6 +7,6 @@ public class SystemInstr extends MipsInstr{
 
     @Override
     public String toString() {
-        return "syscall";
+        return "syscall\n";
     }
 }

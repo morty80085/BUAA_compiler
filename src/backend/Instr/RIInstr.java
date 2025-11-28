@@ -22,6 +22,6 @@ public class RIInstr extends MipsInstr{
 
     @Override
     public String toString() {
-        return "\t" + op + " " + rt + ", " + rs + ", " + number;
+        return "\t" + op + " " + rt + ", " + rs + ", " + number + "\n";
     }
 }

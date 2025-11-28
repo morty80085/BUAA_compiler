@@ -17,6 +17,6 @@ public class LoadInstr extends MipsInstr{
 
     @Override
     public String toString() {
-        return "\tlw " + rt + ", " + offset + "(" + base + ")";
+        return "\tlw " + rt + ", " + offset + "(" + base + ")\n";
     }
 }

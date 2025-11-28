@@ -23,6 +23,6 @@ public class RRInstr extends MipsInstr{
 
     @Override
     public String toString() {
-        return "\t" + op + " " + rd + ", " + rs + ", " + rt;
+        return "\t" + op + " " + rd + ", " + rs + ", " + rt + "\n";
     }
 }

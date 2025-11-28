@@ -24,9 +24,9 @@ public class MipsJumpInstr extends MipsInstr{
     @Override
     public String toString() {
         if(this.op == Op.jr) {
-            return "jr " + rd;
+            return "jr " + rd + "\n";
         } else {
-            return op + " " + target;
+            return op + " " + target + "\n";
         }
     }
 }

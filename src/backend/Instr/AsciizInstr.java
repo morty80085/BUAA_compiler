@@ -11,6 +11,6 @@ public class AsciizInstr extends MipsInstr{
 
     @Override
     public String toString() {
-        return "\t" + name + ": .asciiz \"" + content.replace("\n", "\\n") + "\"";
+        return "\t" + name + ": .asciiz \"" + content.replace("\n", "\\n") + "\"\n";
     }
 }

@@ -16,6 +16,6 @@ public class MipsStoreInstr extends MipsInstr{
 
     @Override
     public String toString() {
-        return "\tsw " + rt + ", " + offset + "(" + base + ")";
+        return "\tsw " + rt + ", " + offset + "(" + base + ")\n";
     }
 }

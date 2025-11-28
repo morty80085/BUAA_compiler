@@ -28,9 +28,9 @@ public class MipsBranchInstr extends MipsInstr{
     @Override
     public String toString() {
         if(this.op == Op.beq || this.op == Op.bne) {
-            return "\t" + op + " " + rs + ", " + rt + ", " + label;
+            return "\t" + op + " " + rs + ", " + rt + ", " + label + "\n";
         } else {
-            return "\t" + op + " " + rs + ", " +  label;
+            return "\t" + op + " " + rs + ", " +  label + "\n";
         }
     }
 }

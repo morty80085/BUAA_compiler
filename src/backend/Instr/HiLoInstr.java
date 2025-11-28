@@ -24,7 +24,7 @@ public class HiLoInstr extends MipsInstr{
 
     @Override
     public String toString() {
-        return "\t" + hiLoType + " " + rd;
+        return "\t" + hiLoType + " " + rd + "\n";
     }
 
 }
