@@ -1,5 +1,9 @@
 package llvm_ir.instr;
 
+import backend.Instr.*;
+import backend.MipsBuilder;
+import backend.Register;
+import llvm_ir.Constant;
 import llvm_ir.Instr;
 import llvm_ir.StringLiteral;
 import llvm_ir.Value;
@@ -49,6 +53,26 @@ public class IOInstr extends Instr {
             Value target = getTarget();
             return "call void @putint(i32 " + target.getName() + ")";
         }
+
+        @Override
+        public void genMips() {
+            Value target = getTarget();
+            if(target instanceof Constant) {
+                LiInstr liInstr = new LiInstr(Register.a0, ((Constant) target).getValue());
+                MipsBuilder.getInstance().addText(liInstr);
+            } else if(MipsBuilder.getInstance().getRegisterOfValue(target) != null) {
+                MoveInstr moveInstr = new MoveInstr(Register.a0, MipsBuilder.getInstance().getRegisterOfValue(target));
+                MipsBuilder.getInstance().addText(moveInstr);
+            } else {
+                int offset = MipsBuilder.getInstance().getOffsetOfValue(target);
+                MipsLoadInstr mipsLoadInstr = new MipsLoadInstr(Register.a0, Register.sp, offset);
+                MipsBuilder.getInstance().addText(mipsLoadInstr);
+            }
+            LiInstr liInstr = new LiInstr(Register.v0, 1);
+            SystemInstr systemInstr = new SystemInstr();
+            MipsBuilder.getInstance().addText(liInstr);
+            MipsBuilder.getInstance().addText(systemInstr);
+        }
     }
 
     public static class PutStr extends IOInstr{
@@ -69,6 +93,16 @@ public class IOInstr extends Instr {
             return "call void @putstr(i8* getelementptr inbounds (" +
                     pointerType.getTargetType() + ", " +
                     pointerType + " " + stringLiteral.getName() + ", i64 0, i64 0))";
+        }
+
+        @Override
+        public void genMips() {
+            LiInstr liInstr = new LiInstr(Register.v0, 4);
+            LaInstr laInstr = new LaInstr(Register.a0, stringLiteral.getName().substring(1));
+            SystemInstr systemInstr = new SystemInstr();
+            MipsBuilder.getInstance().addText(liInstr);
+            MipsBuilder.getInstance().addText(laInstr);
+            MipsBuilder.getInstance().addText(systemInstr);
         }
     }
 }

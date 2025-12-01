@@ -13,10 +13,11 @@ public class MipsBranchInstr extends MipsInstr{
     private Register rt;
     private String label;
 
-    public MipsBranchInstr(Op op, Register rs, Register rt) {
+    public MipsBranchInstr(Op op, Register rs, Register rt, String label) {
         this.op = op;
         this.rs = rs;
         this.rt = rt;
+        this.label = label;
     }
 
     public MipsBranchInstr(Op op, Register rs, String label) {

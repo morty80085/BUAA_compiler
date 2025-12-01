@@ -6,7 +6,7 @@ import backend.Register;
 //R[rd] <- R[rs] + R[rt]
 public class RRInstr extends MipsInstr{
     public enum Op {
-        add,and,div,mult,or,slt,sub;
+        add,and,div,mult,or,slt,sub,xor,sgt,sltu, sge, sle;
     }
 
     private Op op;
@@ -21,8 +21,18 @@ public class RRInstr extends MipsInstr{
         this.rt = rt;
     }
 
+    public RRInstr(Op op, Register rs, Register rt) {
+        this.op = op;
+        this.rs = rs;
+        this.rt = rt;
+    }
+
     @Override
     public String toString() {
-        return "\t" + op + " " + rd + ", " + rs + ", " + rt + "\n";
+        if(op == Op.mult || op == Op.div) {
+            return "\t" + op + " " + rs + ", " + rt + "\n";
+        } else {
+            return "\t" + op + " " + rd + ", " + rs + ", " + rt + "\n";
+        }
     }
 }

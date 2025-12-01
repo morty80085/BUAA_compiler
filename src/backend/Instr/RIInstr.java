@@ -5,7 +5,7 @@ import backend.Register;
 //addi rt, rs, immediate
 public class RIInstr extends MipsInstr{
     public enum Op{
-        addi,andi,ori,slti;
+        addi,andi,ori,slti,sltiu,sll;
     }
 
     private Op op;

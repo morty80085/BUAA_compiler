@@ -1,5 +1,6 @@
 package llvm_ir;
 
+import backend.Instr.ContentInstr;
 import backend.Instr.LabelInstr;
 import backend.MipsBuilder;
 import backend.Register;
@@ -100,6 +101,7 @@ public class Function extends User{
     @Override
     public void genMips() {
         LabelInstr labelInstr = new LabelInstr(name.substring(1));
+        MipsBuilder.getInstance().addText(labelInstr);
         //进入函数
         MipsBuilder.getInstance().enterFunction(this);
         //设置参数，$a0-$a3用来放前四个参数
@@ -114,15 +116,18 @@ public class Function extends User{
                 } else {
                     MipsBuilder.getInstance().setRegisterForValue(paramList.get(i), Register.a3);
                 }
-            } else {
-                MipsBuilder.getInstance().subCurrentOffset(4);
-                int offset = MipsBuilder.getInstance().getCurrentOffset();
-                MipsBuilder.getInstance().putOffset(paramList.get(i), offset);
             }
+            //虽然前四个参数被保存在寄存器中，但在栈上还是要分配空间
+            MipsBuilder.getInstance().subCurrentOffset(4);
+            int offset = MipsBuilder.getInstance().getCurrentOffset();
+            MipsBuilder.getInstance().putOffset(paramList.get(i), offset);
         }
 
         for(BasicBlock block: BBList) {
             block.genMips();
         }
+
+        ContentInstr contentInstr = new ContentInstr("\n");
+        MipsBuilder.getInstance().addText(contentInstr);
     }
 }

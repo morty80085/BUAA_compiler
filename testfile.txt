@@ -5,6 +5,10 @@ const int G_CON2 = 1, G_CON3 = 2, G_CON4 = 3;
 const int G_CON_ARR[5-1] = {4 , 3, 2, 0 + G_CON3 - 1};
 int g_arr[10] = {2, 3};
 
+int re() {
+    return G_CON1;
+}
+
 int factorial(int n) {
     if (n < 0) {
         printf("error: n = %d < 0\n", n);

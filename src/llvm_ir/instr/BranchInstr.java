@@ -1,9 +1,16 @@
 package llvm_ir.instr;
 
+import backend.Instr.MipsBranchInstr;
+import backend.Instr.MipsJumpInstr;
+import backend.Instr.MipsLoadInstr;
+import backend.MipsBuilder;
+import backend.Register;
 import llvm_ir.BasicBlock;
 import llvm_ir.Instr;
 import llvm_ir.Value;
 import llvm_ir.type.BaseType;
+
+import java.lang.management.MemoryManagerMXBean;
 
 public class BranchInstr extends Instr {
     public BranchInstr(String name, Value con, BasicBlock thenBlock, BasicBlock elseBlock) {
@@ -39,5 +46,27 @@ public class BranchInstr extends Instr {
         BasicBlock thenBlock = getThenBlock();
         BasicBlock elseBlock = getElseBlock();
         return "br i1 " + con.getName() + ", label %" + thenBlock.getName() + ", label %" + elseBlock.getName();
+    }
+
+    @Override
+    public void genMips() {
+        Value con = getCon();
+        Value thenBlock = getThenBlock();
+        Value elseBlock = getElseBlock();
+
+        Register conRegister = Register.t0;
+
+        if(MipsBuilder.getInstance().getRegisterOfValue(con) != null) {
+            conRegister = MipsBuilder.getInstance().getRegisterOfValue(con);
+        } else {
+            int offset = MipsBuilder.getInstance().getOffsetOfValue(con);
+            MipsLoadInstr mipsLoadInstr = new MipsLoadInstr(conRegister, Register.sp, offset);
+            MipsBuilder.getInstance().addText(mipsLoadInstr);
+        }
+
+        MipsBranchInstr mipsBranchInstr = new MipsBranchInstr(MipsBranchInstr.Op.bne, conRegister ,Register.zero, thenBlock.getName());
+        MipsJumpInstr mipsJumpInstr = new MipsJumpInstr(MipsJumpInstr.Op.j, elseBlock.getName());
+        MipsBuilder.getInstance().addText(mipsBranchInstr);
+        MipsBuilder.getInstance().addText(mipsJumpInstr);
     }
 }

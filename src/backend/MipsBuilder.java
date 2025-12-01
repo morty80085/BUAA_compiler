@@ -48,8 +48,12 @@ public class MipsBuilder {
         return null;
     }
 
+    public ArrayList<Register> getAllocRegister() {
+        return new ArrayList<>(registerMap.values());
+    }
+
     public void subCurrentOffset(int num) {
-        currentOffset = currentOffset * num;
+        currentOffset = currentOffset - num;
     }
 
     public void addCurrentOffset(int num) {
@@ -60,15 +64,23 @@ public class MipsBuilder {
         return currentOffset;
     }
 
-    public void putOffset(Value value, Integer offset) {
+    public void putOffset(Value value, int offset) {
         offsetMap.put(value, offset);
     }
 
     public Integer getOffsetOfValue(Value value) {
         if(offsetMap.containsKey(value)) {
-            offsetMap.get(value);
+            return offsetMap.get(value);
         }
         return null;
+    }
+
+    public String printOffsetMap() {
+        StringBuilder sb = new StringBuilder();
+        for(Value value: offsetMap.keySet()) {
+            sb.append(value).append(" ").append(offsetMap.get(value)).append("\n");
+        }
+        return sb.toString();
     }
 
     public void addDate(MipsInstr mipsInstr) {

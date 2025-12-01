@@ -23,5 +23,7 @@ public class Compiler {
         Module module = IRBuilder.getInstance().getCurModule();
         compUnit.genIR();
         IOhandler.printLLVM(module);
+        module.genMips();
+        IOhandler.printMips();
     }
 }

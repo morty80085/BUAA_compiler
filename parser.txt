@@ -202,6 +202,25 @@ SEMICN ;
 <VarDecl>
 INTTK int
 <FuncType>
+IDENFR re
+LPARENT (
+RPARENT )
+LBRACE {
+RETURNTK return
+IDENFR G_CON1
+<LVal>
+<PrimaryExp>
+<UnaryExp>
+<MulExp>
+<AddExp>
+<Exp>
+SEMICN ;
+<Stmt>
+RBRACE }
+<Block>
+<FuncDef>
+INTTK int
+<FuncType>
 IDENFR factorial
 LPARENT (
 INTTK int

@@ -67,5 +67,8 @@ public class BasicBlock extends Value{
     public void genMips() {
         LabelInstr labelInstr = new LabelInstr(name);
         MipsBuilder.getInstance().addText(labelInstr);
+        for(Instr instr :instrList) {
+            instr.genMips();
+        }
     }
 }

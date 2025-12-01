@@ -1,5 +1,6 @@
 package utils;
 
+import backend.MipsBuilder;
 import error.Error;
 import error.ErrorRecorder;
 import frontend.FrontEnd;
@@ -24,6 +25,7 @@ public class IOhandler {
     private static OutputStream parserStream = null;
     private static OutputStream symbolStream = null;
     private static OutputStream llvmStream = null;
+    private static OutputStream mipsStream = null;
 
 
     public static void setIOhandler() throws FileNotFoundException {
@@ -33,6 +35,7 @@ public class IOhandler {
         IOhandler.parserStream = new FileOutputStream("parser.txt");
         IOhandler.symbolStream = new FileOutputStream("symbol.txt");
         IOhandler.llvmStream = new FileOutputStream("llvm_ir.txt");
+        IOhandler.mipsStream = new FileOutputStream("mips.txt");
     }
 
     public static PushbackInputStream getInputStream() {
@@ -117,6 +120,14 @@ public class IOhandler {
     public static void printLLVM(Module module) {
         try {
             llvmStream.write(module.toString().getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void printMips() {
+        try {
+            mipsStream.write(MipsBuilder.getInstance().toString().getBytes());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
