@@ -6,7 +6,7 @@ import backend.Register;
 //R[rd] <- R[rs] + R[rt]
 public class RRInstr extends MipsInstr{
     public enum Op {
-        add,and,div,mult,or,slt,sub,xor,sgt,sltu, sge, sle;
+        add,and,div,mult,or,slt,sub,xor,sgt,sltu, sge, sle, addu, subu;
     }
 
     private Op op;

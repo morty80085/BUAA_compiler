@@ -119,12 +119,7 @@ public class Module extends Value{
 
     @Override
     public void genMips() {
-        // 处理 stringLiterals
-        for (int i = 0; i < stringLiterals.size(); i++) {
-            stringLiterals.get(i).genMips();
-        }
         ContentInstr contentInstr = new ContentInstr("\n\n");
-        MipsBuilder.getInstance().addDate(contentInstr);
 
         // 处理 globalVarList
         for (int i = 0; i < globalVars.size(); i++) {
@@ -138,12 +133,21 @@ public class Module extends Value{
         }
         MipsBuilder.getInstance().addDate(contentInstr);
 
+        // 处理 stringLiterals
+        for (int i = 0; i < stringLiterals.size(); i++) {
+            stringLiterals.get(i).genMips();
+        }
+        MipsBuilder.getInstance().addDate(contentInstr);
+
         MipsJumpInstr mipsJumpInstr = new MipsJumpInstr(MipsJumpInstr.Op.jal,"main");
         MipsBuilder.getInstance().addText(mipsJumpInstr);
         mipsJumpInstr = new MipsJumpInstr(MipsJumpInstr.Op.j, "end");
         MipsBuilder.getInstance().addText(mipsJumpInstr);
 
         for(int i = 0; i < functions.size(); i++) {
+            if(functions.get(i).getName().equals("@getint")) {
+                continue;
+            }
             functions.get(i).genMips();
         }
     }

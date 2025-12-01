@@ -45,7 +45,6 @@ public class CallInstr extends Instr {
     public void genMips() {
         Function function = getFunction();
         String name = function.getName();
-        System.out.println(name);
         if(name.equals("@getint")) {
             LiInstr liInstr = new LiInstr(Register.v0, 5);
             SystemInstr systemInstr = new SystemInstr();
@@ -75,6 +74,8 @@ public class CallInstr extends Instr {
             //保存sp和ra
             MipsStoreInstr saveSp = new MipsStoreInstr(Register.sp, Register.sp, curOffset - 4 * regNum - 4);
             MipsStoreInstr savaRa = new MipsStoreInstr(Register.ra, Register.sp, curOffset - 4 * regNum - 8);
+            MipsBuilder.getInstance().addText(saveSp);
+            MipsBuilder.getInstance().addText(savaRa);
 
             for(int i = 0; i < params.size(); i++) {
                 if(i < 4) {

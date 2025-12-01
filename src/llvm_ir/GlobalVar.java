@@ -1,7 +1,8 @@
 package llvm_ir;
 
-import backend.Instr.WordInstr;
+import backend.Instr.*;
 import backend.MipsBuilder;
+import backend.Register;
 import llvm_ir.type.LLvmType;
 import llvm_ir.type.PointerType;
 
@@ -41,12 +42,20 @@ public class GlobalVar extends Value{
                 MipsBuilder.getInstance().addDate(wordInstr);
             }
         } else {
-            ArrayList<Integer> num = new ArrayList<>();
-            for(Integer number : initial.getValues()) {
-                num.add(number);
+            SpaceInstr spaceInstr = new SpaceInstr(name.substring(1), lLvmType.getArrayLength() * 4);
+            MipsBuilder.getInstance().addDate(spaceInstr);
+            if(initial.getValues() != null) {
+                int offset = 0;
+                for (Integer value : initial.getValues()) {
+                    LiInstr liInstr = new LiInstr(Register.t0, value);
+                    LaInstr laInstr = new LaInstr(Register.t1, name.substring(1));
+                    MipsStoreInstr mipsStoreInstr = new MipsStoreInstr(Register.t0, Register.t1, offset);
+                    MipsBuilder.getInstance().addText(liInstr);
+                    MipsBuilder.getInstance().addText(laInstr);
+                    MipsBuilder.getInstance().addText(mipsStoreInstr);
+                    offset += 4;
+                }
             }
-            WordInstr wordInstr = new WordInstr(name.substring(1),num);
-            MipsBuilder.getInstance().addDate(wordInstr);
         }
     }
 }

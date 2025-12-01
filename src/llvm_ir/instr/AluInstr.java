@@ -78,11 +78,11 @@ public class AluInstr extends Instr {
 
         switch (op) {
             case add:
-                RRInstr addInstr = new RRInstr(RRInstr.Op.add, register3, register1, register2);
+                RRInstr addInstr = new RRInstr(RRInstr.Op.addu, register3, register1, register2);
                 MipsBuilder.getInstance().addText(addInstr);
                 break;
             case sub:
-                RRInstr subInstr = new RRInstr(RRInstr.Op.sub, register3, register1, register2);
+                RRInstr subInstr = new RRInstr(RRInstr.Op.subu, register3, register1, register2);
                 MipsBuilder.getInstance().addText(subInstr);
                 break;
             case mul:

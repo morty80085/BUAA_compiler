@@ -50,16 +50,7 @@ public class VarDef extends Node{
             lLvmType = BaseType.INT32;
         }
         if(children.get(children.size() - 1 ).getSyntaxVarType() != SyntaxVarType.INIT_VAL) {
-            //全部初始化为0
-            ArrayList<Integer> values = new ArrayList<>();
-            if(isArray) {
-                for(int i = 0; i < len; i++) {
-                    values.add(0);
-                }
-            } else {
-                values.add(0);
-            }
-            initial = new Initial(lLvmType, values);
+            initial = new Initial(lLvmType, null);
         } else {
             int dim = 0;
             if(isArray) {
