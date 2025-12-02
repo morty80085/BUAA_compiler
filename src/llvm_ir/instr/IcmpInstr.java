@@ -77,17 +77,12 @@ public class IcmpInstr extends Instr {
 
         switch (op) {
             case eq:
-                RRInstr xorInstr = new RRInstr(RRInstr.Op.xor, register3, register1, register2);
-                //rd = 1 -> register3 == 0
-                RIInstr sltiuInstr = new RIInstr(RIInstr.Op.sltiu, register3, register3, 1);
-                MipsBuilder.getInstance().addText(xorInstr);
-                MipsBuilder.getInstance().addText(sltiuInstr);
+                RRInstr seqInstr = new RRInstr(RRInstr.Op.seq, register3, register1, register2);
+                MipsBuilder.getInstance().addText(seqInstr);
                 break;
             case ne:
-                RRInstr xorInstr2 = new RRInstr(RRInstr.Op.xor, register3, register1, register2);
-                RRInstr sltuInstr = new RRInstr(RRInstr.Op.sltu, register3, Register.zero, register3);
-                MipsBuilder.getInstance().addText(xorInstr2);
-                MipsBuilder.getInstance().addText(sltuInstr);
+                RRInstr sneInstr = new RRInstr(RRInstr.Op.sne,register3, register1, register2);
+                MipsBuilder.getInstance().addText(sneInstr);
                 break;
             case sgt:
                 RRInstr sgtInstr = new RRInstr(RRInstr.Op.sgt, register3, register1, register2);

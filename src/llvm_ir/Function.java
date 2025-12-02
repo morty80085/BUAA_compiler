@@ -106,12 +106,10 @@ public class Function extends User{
         MipsBuilder.getInstance().enterFunction(this);
         //设置参数，$a0-$a3用来放前四个参数
         for(int i = 0; i < paramList.size(); i++) {
-            if(i < 4) {
+            if(i < 3) {
                 if(i == 0) {
-                    MipsBuilder.getInstance().setRegisterForValue(paramList.get(i), Register.a0);
-                } else if(i == 1) {
                     MipsBuilder.getInstance().setRegisterForValue(paramList.get(i), Register.a1);
-                } else if(i == 2) {
+                } else if(i == 1) {
                     MipsBuilder.getInstance().setRegisterForValue(paramList.get(i), Register.a2);
                 } else {
                     MipsBuilder.getInstance().setRegisterForValue(paramList.get(i), Register.a3);

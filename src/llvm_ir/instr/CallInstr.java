@@ -78,27 +78,9 @@ public class CallInstr extends Instr {
             MipsBuilder.getInstance().addText(savaRa);
 
             for(int i = 0; i < params.size(); i++) {
-                if(i < 4) {
+                if(i < 3) {
                     //存在寄存器中
                     if(i == 0) {
-                        if(params.get(i) instanceof Constant) {
-                            LiInstr liInstr = new LiInstr(Register.a0, Integer.parseInt(params.get(i).getName()));
-                            MipsBuilder.getInstance().addText(liInstr);
-                        } else if(MipsBuilder.getInstance().getRegisterOfValue(params.get(i)) != null) {
-                            Register register = MipsBuilder.getInstance().getRegisterOfValue(params.get(i));
-                            //如果当前的实参是函数的形参，则存在$a0-a4中，此时可能已经被覆盖，要从栈上取
-                            if(params.get(i) instanceof Param) {
-                                MipsLoadInstr mipsLoadInstr = new MipsLoadInstr(Register.a0, Register.sp, curOffset - (registers.indexOf(register) + 1) * 4);
-                                MipsBuilder.getInstance().addText(mipsLoadInstr);
-                            } else {
-                                MoveInstr moveInstr = new MoveInstr(Register.a0, register);
-                                MipsBuilder.getInstance().addText(moveInstr);
-                            }
-                        } else {
-                            MipsLoadInstr mipsLoadInstr = new MipsLoadInstr(Register.a0, Register.sp, MipsBuilder.getInstance().getOffsetOfValue(params.get(i)));
-                            MipsBuilder.getInstance().addText(mipsLoadInstr);
-                        }
-                    } else if(i == 1) {
                         if(params.get(i) instanceof Constant) {
                             LiInstr liInstr = new LiInstr(Register.a1, Integer.parseInt(params.get(i).getName()));
                             MipsBuilder.getInstance().addText(liInstr);
@@ -116,7 +98,7 @@ public class CallInstr extends Instr {
                             MipsLoadInstr mipsLoadInstr = new MipsLoadInstr(Register.a1, Register.sp, MipsBuilder.getInstance().getOffsetOfValue(params.get(i)));
                             MipsBuilder.getInstance().addText(mipsLoadInstr);
                         }
-                    } else if(i == 2) {
+                    } else if(i == 1) {
                         if(params.get(i) instanceof Constant) {
                             LiInstr liInstr = new LiInstr(Register.a2, Integer.parseInt(params.get(i).getName()));
                             MipsBuilder.getInstance().addText(liInstr);

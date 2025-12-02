@@ -86,7 +86,7 @@ public class GepInstr extends Instr {
         //offset = offset << 4
         RIInstr riInstr = new RIInstr(RIInstr.Op.sll, offsetRegister, offsetRegister, 2);
         //计算出最终的地址
-        RRInstr rrInstr = new RRInstr(RRInstr.Op.add, targetRegister, offsetRegister, addressRegister);
+        RRInstr rrInstr = new RRInstr(RRInstr.Op.addu, targetRegister, offsetRegister, addressRegister);
         MipsBuilder.getInstance().addText(riInstr);
         MipsBuilder.getInstance().addText(rrInstr);
 
